@@ -2,9 +2,9 @@ package com.example.smsreceive;
 
 public class ClassSMS {
     String id, time, date, body, sender;
-    String seen;
+    int seen;
 
-    public ClassSMS(String id, String time, String date, String body, String sender, String seen) {
+    public ClassSMS(String id, String time, String date, String body, String sender, int seen) {
         this.id = id;
         this.time = time;
         this.date = date;
@@ -53,11 +53,11 @@ public class ClassSMS {
         this.sender = sender;
     }
 
-    public String getSeen() {
+    public int getSeen() {
         return seen;
     }
 
-    public void setSeen(String seen) {
+    public void setSeen(int seen) {
         this.seen = seen;
     }
 }

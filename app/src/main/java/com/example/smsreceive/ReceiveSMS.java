@@ -39,7 +39,7 @@ public class ReceiveSMS extends BroadcastReceiver {
 
                         Log.e("CLASS", "onReceive: " + msg_id + " " +  msg_time + " " + msg_date  + " " + msg_body + " " + msg_sender);
 
-                        ClassSMS sms = new ClassSMS(msg_id, msg_time, msg_date, msg_body, msg_sender, "false");
+                        ClassSMS sms = new ClassSMS(msg_id, msg_time, msg_date, msg_body, msg_sender, 0);
                         ClassSQLiteHelper helper = new ClassSQLiteHelper(context);
                         helper.addNewMessage(sms);
                     }

@@ -50,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
             {
                 Log.e("CURSOR", "onCreate: " + cursor);
                 String id, time, date, body, sender;
-                String seen;
+                int seen;
                 id = cursor.getString(0);
                 time = cursor.getString(1);
                 date = cursor.getString(2);
                 body = cursor.getString(3);
                 sender = cursor.getString(4);
-                seen = cursor.getString(5);
+                seen = cursor.getInt(5);
 
                 ClassSMS sms = new ClassSMS(id, time, date, body, sender, seen);
                 arrayList.add(sms);

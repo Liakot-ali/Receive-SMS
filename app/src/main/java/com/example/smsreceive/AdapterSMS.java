@@ -3,6 +3,9 @@ package com.example.smsreceive;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AdapterSMS extends RecyclerView.Adapter<AdapterSMS.ViewHolder> {
 
@@ -52,15 +56,35 @@ public class AdapterSMS extends RecyclerView.Adapter<AdapterSMS.ViewHolder> {
     public void onBindViewHolder(@NonNull AdapterSMS.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.itemView.setTag(arrayList.get(position));
+        int seen = arrayList.get(position).getSeen();
+        Log.e("SEEN", "onBindViewHolder: " + seen);
+        if(seen == 1){
+            holder.sender.setTextColor(Color.GRAY);
+            holder.body.setTextColor(Color.GRAY);
+            holder.time.setTextColor(Color.GRAY);
+        }else{
+            holder.sender.setTextColor(Color.BLACK);
+            holder.body.setTextColor(Color.BLACK);
+            holder.time.setTextColor(Color.BLACK);
+        }
 
         holder.sender.setText(arrayList.get(position).getSender());
-        holder.time.setText(arrayList.get(position).getTime());
+        holder.time.setText(arrayList.get(position).getDate());
         holder.body.setText(String.valueOf(arrayList.get(position).getBody()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activityContext, "Under Construction", Toast.LENGTH_SHORT).show();
+                if(seen == 0) {
+                    ClassSQLiteHelper helper = new ClassSQLiteHelper(activityContext);
+                    helper.UpdateSeen(arrayList.get(position).getId());
+                }
+                Intent intent = new Intent(activityContext, MessageDetails.class);
+                intent.putExtra("sender", arrayList.get(position).getSender());
+                intent.putExtra("message", arrayList.get(position).getBody());
+                intent.putExtra("time", arrayList.get(position).getTime());
+                intent.putExtra("date", arrayList.get(position).getDate());
+                activityContext.startActivity(intent);
             }
         });
     }

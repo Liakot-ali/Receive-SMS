@@ -52,15 +52,25 @@ public class ClassSQLiteHelper extends SQLiteOpenHelper {
         cv.put(msgDate, sms.getDate());
         cv.put(msgBody, sms.getBody());
         cv.put(msgSender, sms.getSender());
-        cv.put(msgSeen, sms.getSeen());
+        cv.put(msgSeen, false);
         long result = database.insert(msgDetails, null, cv);
         database.close();
         Log.e("CLASS", "AddNewMessage: " + cv + " " + result);
-        if (result != -1) {
-            Toast.makeText(context, "New message added", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
-        }
+//        if (result != -1) {
+//            Toast.makeText(context, "New message added", Toast.LENGTH_SHORT).show();
+//        } else {
+//            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+//        }
+    }
+
+    public void UpdateSeen(String id)
+    {
+        String query = "UPDATE " + msgDetails + " SET " + msgSeen + " = " + true + " WHERE " + msgId + " = " + id ;
+        SQLiteDatabase database = this.getWritableDatabase();
+//        ContentValues cv = new ContentValues();
+//        cv.put(msgSeen, true);
+//        database.update(msgDetails, cv, msgId + " = " + id, null);
+        database.execSQL(query);
     }
 
     public Cursor showMessage() {
