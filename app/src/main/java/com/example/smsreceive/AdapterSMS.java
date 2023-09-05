@@ -5,6 +5,7 @@ import android.content.Context;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
+import java.util.StringTokenizer;
 
 public class AdapterSMS extends RecyclerView.Adapter<AdapterSMS.ViewHolder> {
 
@@ -67,9 +71,21 @@ public class AdapterSMS extends RecyclerView.Adapter<AdapterSMS.ViewHolder> {
             holder.body.setTextColor(Color.BLACK);
             holder.time.setTextColor(Color.BLACK);
         }
+        Date d = new Date();
+        String date = DateFormat.format("dd-MM-yyyy hh:mm aa", d).toString();
+        StringTokenizer tk = new StringTokenizer(date);
+        date = tk.nextToken();
 
+
+        Log.e("DATE", "onBindViewHolder: " + date + " " + arrayList.get(position).getDate());
+
+
+        if(Objects.equals(date, arrayList.get(position).getDate())){
+            holder.time.setText(arrayList.get(position).getTime());
+        }else{
+            holder.time.setText(arrayList.get(position).getDate());
+        }
         holder.sender.setText(arrayList.get(position).getSender());
-        holder.time.setText(arrayList.get(position).getDate());
         holder.body.setText(String.valueOf(arrayList.get(position).getBody()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

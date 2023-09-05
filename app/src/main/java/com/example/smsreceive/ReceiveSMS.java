@@ -9,6 +9,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.StringTokenizer;
@@ -32,10 +33,10 @@ public class ReceiveSMS extends BroadcastReceiver {
                         String msg_sender = msg[i].getOriginatingAddress();
                         String msg_id = String.valueOf(System.currentTimeMillis());
                         Date d = new Date();
-                        String date = DateFormat.format("dd-MM-yyyy hh:mm:ss a", d).toString();
+                        String date = DateFormat.format("dd-MM-yyyy hh:mm aa", d).toString();
                         StringTokenizer tk = new StringTokenizer(date);
                         String msg_date = tk.nextToken();
-                        String msg_time = tk.nextToken();
+                        String msg_time = tk.nextToken() + " " + tk.nextToken();
 
                         Log.e("CLASS", "onReceive: " + msg_id + " " +  msg_time + " " + msg_date  + " " + msg_body + " " + msg_sender);
 
