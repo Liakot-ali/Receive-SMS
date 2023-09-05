@@ -79,6 +79,7 @@ public class AdapterSMS extends RecyclerView.Adapter<AdapterSMS.ViewHolder> {
                 if(seen == 0) {
                     ClassSQLiteHelper helper = new ClassSQLiteHelper(activityContext);
                     helper.UpdateSeen(arrayList.get(position).getId());
+                    arrayList.get(position).setSeen(1);
                     notifyDataSetChanged();
                 }
                 Intent intent = new Intent(activityContext, MessageDetails.class);
