@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,9 +62,10 @@ public class MainActivity extends AppCompatActivity {
                 ClassSMS sms = new ClassSMS(id, time, date, body, sender, seen);
                 arrayList.add(sms);
             }
-
+            Collections.reverse(arrayList);
             adapter = new AdapterSMS(MainActivity.this, arrayList);
             recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }
 
     }
@@ -76,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-
     }
 
     @Override

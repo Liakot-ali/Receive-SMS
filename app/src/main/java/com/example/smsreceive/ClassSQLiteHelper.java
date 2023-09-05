@@ -65,12 +65,13 @@ public class ClassSQLiteHelper extends SQLiteOpenHelper {
 
     public void UpdateSeen(String id)
     {
-        String query = "UPDATE " + msgDetails + " SET " + msgSeen + " = " + true + " WHERE " + msgId + " = " + id ;
+//        String query = "UPDATE " + msgDetails + " SET " + msgSeen + " = " + true + " WHERE " + msgId + " = " + id ;
         SQLiteDatabase database = this.getWritableDatabase();
-//        ContentValues cv = new ContentValues();
-//        cv.put(msgSeen, true);
-//        database.update(msgDetails, cv, msgId + " = " + id, null);
-        database.execSQL(query);
+        ContentValues cv = new ContentValues();
+        cv.put(msgSeen, true);
+        database.update(msgDetails, cv, msgId + " = ? ", new String[]{id});
+        database.close();
+//        database.execSQL(query);
     }
 
     public Cursor showMessage() {

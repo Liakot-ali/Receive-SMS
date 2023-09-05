@@ -73,11 +73,13 @@ public class AdapterSMS extends RecyclerView.Adapter<AdapterSMS.ViewHolder> {
         holder.body.setText(String.valueOf(arrayList.get(position).getBody()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
                 if(seen == 0) {
                     ClassSQLiteHelper helper = new ClassSQLiteHelper(activityContext);
                     helper.UpdateSeen(arrayList.get(position).getId());
+                    notifyDataSetChanged();
                 }
                 Intent intent = new Intent(activityContext, MessageDetails.class);
                 intent.putExtra("sender", arrayList.get(position).getSender());
